@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar } from "@/components/nav/sidebar";
+import { NavBar } from "@/components/layouts/sidebar";
 
 export default function DashboardPage() {
   return (
