@@ -29,7 +29,7 @@ const Login = () => {
 
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/mahasiswa/dashboard'
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/dashboard'
 
   const form = useForm({ resolver: yupResolver(loginSchema) })
   const {
@@ -44,11 +44,10 @@ const Login = () => {
         redirect: false,
         email: values.email,
         password: values.password,
-        callbackUrl,
       })
 
       if (!res?.error) {
-        router.push(callbackUrl)
+        router.push('/mhs/dashboard')
       } else {
         setError(res?.error)
         form.setError('email', { message: res?.error })
@@ -65,8 +64,9 @@ const Login = () => {
     <div className='flex justify-center items-center flex-col min-h-screen'>
       <Card className='w-full max-w-xs shadow-none'>
         <CardHeader className='pb-3'>
-          <CardTitle>Login</CardTitle>
-          <CardDescription></CardDescription>
+          <img src="/public/logo.png" alt="" />
+          <CardTitle className='flex item-center'>AcademicScope</CardTitle>
+          <CardDescription>Log In</CardDescription>
         </CardHeader>
         <CardContent className='space-y-3'>
           {error && (
@@ -87,7 +87,7 @@ const Login = () => {
                   <FormItem>
                     <FormLabel htmlFor='email'>Email</FormLabel>
                     <FormControl>
-                      <Input id='email' type='email' placeholder='Masukkan email' {...field} />
+                      <Input id='email' type='email' placeholder='Your email...' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,7 +101,7 @@ const Login = () => {
                   <FormItem className='transition-all duration-500 ease-in-out'>
                     <FormLabel htmlFor='password'>Password</FormLabel>
                     <FormControl>
-                      <Input id='password' type='password' placeholder='Masukkan password' {...field} />
+                      <Input id='password' type='password' placeholder='Your password' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,12 +109,15 @@ const Login = () => {
               />
 
               <Button type='submit' className='w-full' disabled={!isValid}>
-                Submit
+                Log In
               </Button>
             </form>
           </Form>
         </CardContent>
       </Card>
+
+      <div className='mt-4' />
+
     </div>
   )
 }

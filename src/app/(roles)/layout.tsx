@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import Providers from "@/components/providers";
 import { cn } from "@/lib/utils";
 
-import "../styles/globals.css";
+
 
 import NavBar from "@/components/layouts/sidebar";
 import { MainNav } from "@/components/layouts/header";
@@ -21,11 +21,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const currentPath =
-  //   typeof window !== "undefined" ? window.location.pathname : "";
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "";
 
-  // // Periksa apakah URL saat ini adalah '/login'
-  // const isLoginPage = currentPath === "/login";
+  // Periksa apakah URL saat ini adalah '/login'
+  const isLoginPage = currentPath === "/login";
 
   return (
     <html lang="en">
@@ -37,12 +37,12 @@ export default function RootLayout({
       >
         <main>
           
-          <Providers>
-            {/* <div className="flex flex-col min-h-screen">
+          {/* <Providers> */}
+            <div className="flex flex-col min-h-screen">
               <div>
                 <MainNav />
-              </div> */}
-{/* 
+              </div>
+
               {isLoginPage ? (
                 <div className="basis-1/6">{children}</div>
               ) : (
@@ -50,15 +50,13 @@ export default function RootLayout({
                   <div className="basis-1/6">
                     <NavBar />
                   </div>
-                  <div className="basis-5/6"> */}
-                    {children}
-                    {/* </div>
+                  <div className="basis-5/6">{children}</div>
                 </div>
               )}
               
-            </div> */}
+            </div>
             
-          </Providers>
+          {/* </Providers> */}
           
         </main>
       </body>

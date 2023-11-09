@@ -1,3 +1,5 @@
+'use client';
+
 import {
     Avatar,
     AvatarFallback,
@@ -14,6 +16,7 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { signOut } from "next-auth/react";
 
   import { useRouter, usePathname } from "next/navigation"
   
@@ -44,7 +47,7 @@ import {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => {
-                router.push("/auth/login");
+                signOut();
               }}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

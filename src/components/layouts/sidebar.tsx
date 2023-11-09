@@ -8,34 +8,34 @@ import { useSession } from "next-auth/react";
 
 const roles = {
   departemen: [
-    { name: "Dashboard", href: "/departemen/dashboard" },
-    { name: "Profil", href: "/departemen/profil" },
-    { name: "Data Mahasiswa", href: "/departemen/datamahasiswa" },
-    { name: "Data PKL", href: "/departemen/pkl" },
-    { name: "Data Skripsi", href: "/departemen/skripsi" },
+    { name: "Dashboard", href: "/dept/dashboard" },
+    { name: "Profil", href: "/dept/profil" },
+    { name: "Data Mahasiswa", href: "/dept/datamahasiswa" },
+    { name: "Data PKL", href: "/dept/pkl" },
+    { name: "Data Skripsi", href: "/dept/skripsi" },
   ],
   dosen: [
-    { name: "Dashboard", href: "/dosen/dashboard" },
-    { name: "Profil", href: "/dosen/profil" },
-    { name: "Data Mahasiswa", href: "/dosen/datamahasiswa" },
-    { name: "Verifikasi Berkas", href: "/dosen/verifikasi" },
-    { name: "Data PKL", href: "/dosen/pkl" },
-    { name: "Data Skripsi", href: "/dosen/skripsi" },
+    { name: "Dashboard", href: "/doswal/dashboard" },
+    { name: "Profil", href: "/doswal/profil" },
+    { name: "Data Mahasiswa", href: "/doswal/datamahasiswa" },
+    { name: "Verifikasi Berkas", href: "/doswal/verifikasi" },
+    { name: "Data PKL", href: "/doswal/pkl" },
+    { name: "Data Skripsi", href: "/doswal/skripsi" },
   ],
   mahasiswa: [
-    { name: "Dashboard", href: "/mahasiswa/dashboard" },
-    { name: "Profil", href: "/mahasiswa/profil" },
-    { name: "IRS", href: "/mahasiswa/irs" },
-    { name: "KHS", href: "/mahasiswa/khs" },
-    { name: "PKL", href: "/mahasiswa/pkl" },
-    { name: "Skripsi", href: "/mahasiswa/skripsi" },
+    { name: "Dashboard", href: "/mhs/dashboard" },
+    { name: "Profil", href: "/mhs/profil" },
+    { name: "IRS", href: "/mhs/irs" },
+    { name: "KHS", href: "/mhs/khs" },
+    { name: "PKL", href: "/mhs/pkl" },
+    { name: "Skripsi", href: "/mhs/skripsi" },
   ],
   operator: [
-    { name: "Dashboard", href: "/operator/dashboard" },
-    { name: "Profil", href: "/operator/profil" },
-    { name: "Generate Akun", href: "/operator/generate" },
-    { name: "Manajemen Akun", href: "/operator/manajemen" },
-    { name: "Data Mahasiswa", href: "/operator/datamahasiswa" },
+    { name: "Dashboard", href: "/admin/dashboard" },
+    { name: "Profil", href: "/admin/profil" },
+    { name: "Generate Akun", href: "/admin/generate" },
+    { name: "Manajemen Akun", href: "/admin/manajemen" },
+    { name: "Data Mahasiswa", href: "/admin/datamahasiswa" },
   ],
 };
 
@@ -45,11 +45,10 @@ export function NavBar() {
   const { data: session } = useSession();
   const userRole = session?.user?.role; // Retrieve the user's role from the session
 
-  const navigationLinks = roles["mahasiswa"];
+  const navigationLinks = roles[userRole] || [];
 
   return (
     <>
-
       <div className="flex">
         <aside className="sticky top-0 h-screen w-60 bg-white text-gray-800 p-4">
           <nav className="space-y-2">
@@ -88,8 +87,6 @@ export function NavBar() {
           <h1 className="text-lg font-medium">Dashboard</h1>
           <p>hd</p>
         </div> */}
-
-
       </div>
     </>
   );

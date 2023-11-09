@@ -1,210 +1,31 @@
-// import NextAuth from "next-auth";
-// import type { AuthOptions } from "next-auth";
-// import CredentialsProvider from "next-auth/providers/credentials";
-
-// export const authOptions: AuthOptions = {
-//   session: { strategy: "jwt" },
-//   secret: process.env.SECRET,
-
-//   providers: [
-//     CredentialsProvider({
-//       name: "Credentials",
-//       credentials: {
-//         email: { label: "Email", type: "email" },
-//         password: {  label: "Password", type: "password" }
-//       },
-//       async authorize(credentials) {
-//         const { email, password } = credentials as {
-//           email: string;
-//           password: string;
-//         };
-//         const user: any = {
-//           id: 1,
-//           name: "John Doe",
-//           email: "john.doe@mailinator.com",
-//           role: "SUPER",
-//           createdAt: "2021-05-30T06:45:19.000Z"
-//         };
-//         if (user) {
-//           return Promise.resolve(user);
-//         } else {
-//           return Promise.resolve(null);
-//         }
-//       }
-//     })
-//   ],
-
-//   callbacks: {
-//     async jwt(token, user) {
-//       if (user?.provider == "credentials") {
-//         token.email = user.email;
-//       }
-//       return token;
-//     },
-
-//     async session(session, token) {
-//       if (token?.email) {
-//         session.user.email = token.email;
-//       }
-//       return session;
-//     }
-//   }
-// };
-
-// const handler = NextAuth(authOptions);
-
-// export { handler as GET, handler as POST };
-
-// anjengg
-
-import type { NextAuthOptions } from 'next-auth'
-import NextAuth from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-
-// import authService from '@/services/auth'
-
-export const OPTIONS: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'text',
-        },
-        password: {
-          label: 'Password',
-          type: 'password' },
-      },
-      async authorize(credentials) {
-        // const loginErrorMessage = 'Invalid email or password'
-
-        // const res = await authService.login(credentials?.email!, credentials?.password!)
-
-        // if (res?.status !== 200) {
-        //   throw Error(loginErrorMessage)
-        // }
-
-        // const user = res?.data
-
-        // if (user) {
-        //   return {
-        //     id: user?.id,
-        //     name: user?.name,
-        //     email: user?.email,
-        //     accessToken: user?.accessToken,
-        //   }
-        // } else {
-        //   return null
-        // }
-
-        if (credentials?.email === 'admin@ppl.com' && credentials?.password === 'admin') {
-          return {
-            name: 'admin',
-            email: 'admin',
-            role: 'dosen',
-            id: '1',
-            image: 'https://github.com/nathanndk.png',
-          }
-        } else {
-          return null
-        }
-      },
-    }),
-  ],
-  pages: {
-    signIn: '/login',
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user }
-    },
-    async session({ session, token }) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      session.user.accessToken = token.accessToken
-
-      return session
-    },
-  },
-}
-
-const handler = NextAuth(OPTIONS)
-
-export { handler as GET, handler as POST }
-
 // import type { NextAuthOptions } from "next-auth";
 // import NextAuth from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
-// import axios from "axios";
+
+// // import authService from '@/services/auth'
 
 // export const OPTIONS: NextAuthOptions = {
 //   providers: [
 //     CredentialsProvider({
-//       name: "credentials",
+//       name: "Credentials",
 //       credentials: {
-//         email: {
-//           label: "Email",
-//           type: "text",
-//         },
-//         password: {
-//           label: "Password",
-//           type: "password",
-//         },
+//         email: { label: "Email", type: "text" },
+//         password: { label: "Password", type: "password" },
 //       },
-//       async authorize(credentials, req) {
-//         // if (credentials) {
-//         //   try {
-//         //     const response = await axios.post("URL_API_AUTH", {
-//         //       email: credentials.email,
-//         //       password: credentials.password,
-//         //     });
-
-//         //     if (response.status === 200) {
-//         //       const user = response.data;
-
-//         //       return {
-//         //         name: user.name,
-//         //         email: user.email,
-//         //         role: user.role,
-//         //         id: user.id,
-//         //         image: user.image,
-//         //         accessToken: user.accessToken,
-//         //       };
-//         //     }
-//         //   } catch (error) {
-//         //     console.error("Error during authorization:", error);
-//         //   }
-//         // }
-//         // return null;
-
-//         // Data pengguna dummy untuk otentikasi
-//         if (credentials) {
-//           const user = {
-//             email: "yanto@email.com",
-//             password: "rahasia123",
-//             name: "Yanto Siburian",
-//             role: "mahasiswa",
-//             id: 1,
-//             image: "https://example.com/user-avatar.jpg",
-//             accessToken: "dummy-access-token",
+//       async authorize(credentials) {
+//         if (
+//           credentials?.email === "admin@ppl.com" &&
+//           credentials?.password === "admin"
+//         ) {
+//           return {
+//             name: "admin",
+//             email: "admin",
+//             role: "dosen",
+//             id: "1",
 //           };
-
-//           if (
-//             credentials.email === user.email &&
-//             credentials.password === user.password
-//           ) {
-//             return {
-//               name: user.name,
-//               email: user.email,
-//               role: user.role,
-//               id: user.id,
-//               image: user.image,
-//               accessToken: user.accessToken,
-//             };
-//           }
+//         } else {
+//           return null;
 //         }
-//         return null; // Otentikasi gagal
 //       },
 //     }),
 //   ],
@@ -219,38 +40,149 @@ export { handler as GET, handler as POST }
 //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //       // @ts-ignore
 //       session.user.accessToken = token.accessToken;
+
 //       return session;
 //     },
 //   },
 // };
 
-// const handler = NextAuth(OPTIONS);
+import axios from "axios"; // Import Axios
+import NextAuth from "next-auth";
+import type { AuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+declare module "next-auth" {
+  interface Session {
+    refreshToken: string;
+  }
+}
 
-// export { handler as GET, handler as POST };
+// declare module "next-auth" {
+//   interface Session {
+//     refreshToken: string;
+//   }
+// }
+export const authOptions: AuthOptions = {
+  
+  pages: {
+    signIn: "/login",
+  },
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        if (typeof credentials !== "undefined") {
+          try {
+            // Make an Axios request to your server endpoint
+            const res = await axios.post(
+              "http://localhost:3000/login",
+              credentials
+            );
 
-// import NextAuth from "next-auth"
-// import CredentialsProvider from "next-auth/providers/credentials"
+            // Check if the response status is successful (e.g., 200)
+            if (res.status === 200) {
+              const data = res.data;
+              const user = {
 
-// export default NextAuth({
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                role: data.role,
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken,
+              };
+              return {
+                    username: user?.username,
+                    email: user?.email,
+                    role: user?.role,
+                    accessToken: user?.accessToken,
+                    refreshToken: user?.refreshToken,
+                  }
+            } else {
+              return null; // Return null if the request was not successful
+            }
+          } catch (error) {
+            console.error("Error authenticating:", error);
+            return null; // Return null in case of an error
+          }
+        } else {
+          return null;
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      session.user = token;
+      return session;
+    },
+    async signIn({ user, email, credentials }) {
+      console.log("signIn", user, email, credentials);
+      return true;
+
+      
+    }
+  },
+  session: { strategy: "jwt" },
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
+
+// import { verify } from 'jsonwebtoken';
+// import NextAuth from 'next-auth';
+// import type { AuthOptions } from 'next-auth';
+// import CredentialsProvider from 'next-auth/providers/credentials';
+
+// export const authOptions: AuthOptions = {
 //   providers: [
 //     CredentialsProvider({
-//       type: 'credentials',
-//       credentials: {},
+//       name: 'Credentials',
+//       credentials: {
+//         email: { label: 'Email', type: 'text' },
+//         password: { label: 'Password', type: 'password' },
+//       },
 //       async authorize(credentials, req) {
-//         const {email, password} = credentials as {
-//           email: string,
-//           password: string,
-//         };
-//         // validate here your username and password
-//         if(email !== 'alex@email.com' && password !== "qqqqq") {
-//           throw new Error('invalid credentials');
+//         if (typeof credentials !== 'undefined') {
+//           // Dapatkan token dari .json yang telah disediakan
+//           const tokenData = {
+//             accessToken:
+//               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJnZWxlayIsImVtYWlsIjoiZ2VsZWtAc3R1ZGVudHMudW5kaIPA7aWQiLCJwYXNzd29yZCI6IiQyYiQxMCQxRGFpZExPNHgxcW1Tcmthd08zRGRPRjYvenRtVDRkMTJ5RG14bnJuRDhEcHQvVUg1dm9HdSIsInJvbGUiOiJvcGVyYXRvciIsImlhdCI6MTY5OTQ2NDYyMiwiZXhwIjoxNjk5NDY0NjUyfQ.0zof2iWkZwChaC4yhoW7MsDqZBc9Wk0M4nnjyZZ26U4',
+//             refreshToken:
+//               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJnZWxlayIsImVtYWlsIjoiZ2VsZWtAc3R1ZGVudHMudW5kaXAuYWMuaWQiLCJwYXNzd29yZCI6IiQyYiQxMCQxRGFpZExPNHgxcW1Scmthd08zRGRPRjYvenRtVDRkMTJ5RG14bnJuRDhEcHQvVUg1dm9HdSIsInJvbGUiOiJvcGVyYXRvciIsImlhdCI6MTY5OTQ2NDYyMn0.nRll4-temqZOTv-k_vmZFaf32408v3OWVrjVioCrVcM',
+//           };
+
+//           // Verifikasi token menggunakan secret yang sesuai
+//           try {
+//             const secret = 'your_jwt_secret'; // Gantilah dengan secret Anda sendiri
+//             const decodedToken = verify(tokenData.accessToken, secret);
+
+//             if (decodedToken) {
+//               return {
+//                 ...decodedToken, // Sesuaikan dengan format data yang diperlukan
+//                 apiToken: tokenData.accessToken,
+//               };
+//             }
+//           } catch (error) {
+//             // Token tidak valid, atau ada kesalahan lain
+//             return null;
+//           }
+//         } else {
+//           return null;
 //         }
-//         // confirmed users
-//         return {id: 1, name: 'Alex', email: 'alex@email.com'}
-//       }
+//       },
 //     }),
 //   ],
-//   pages: {
-//     signIn: "/auth/login",
-//   }
-// })
+//   session: { strategy: 'jwt' },
+// };
+
+// export default NextAuth(authOptions);
