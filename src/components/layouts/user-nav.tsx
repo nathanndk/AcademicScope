@@ -48,6 +48,7 @@ import { signOut } from "next-auth/react";
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => {
                 signOut();
+                router.push('/');
               }}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

@@ -98,8 +98,8 @@ export function ProfileForm() {
     <>
       <div className="hidden space-y-6 p-10 pb-16 md:block">
         <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">KHS</h2>
-          <p className="text-muted-foreground">Isi KHS</p>
+          <h2 className="text-2xl font-bold tracking-tight">Skripsi</h2>
+          <p className="text-muted-foreground">Isi Skripsi</p>
         </div>
         <Separator className="my-6" />
         <Form {...form}>
@@ -163,7 +163,7 @@ export function ProfileForm() {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "w-[240px] pl-3 text-left font-normal w-full",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -188,9 +188,6 @@ export function ProfileForm() {
                       />
                     </PopoverContent>
                   </Popover>
-                  <FormDescription>
-                    Your date of birth is used to calculate your age.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
